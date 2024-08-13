@@ -1,51 +1,52 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
-type gasEngine struct {
-	mpg     uint16
-	gallons uint16
-	owner
-}
-
-type electricEngine struct {
-	mpkwh uint16
-	kwh   uint16
-	owner
-}
-
-func (e gasEngine) milesLeft() uint16 {
-	return e.gallons * e.mpg
-}
-
-func (e electricEngine) milesLeft() uint16 {
-	return e.mpkwh * e.kwh
-}
-
-type owner struct {
-	name string
-}
-
-type engine interface {
-	milesLeft() uint16
-}
-
-func canMakeIt(eng engine, expectedMiles uint16) {
-	fmt.Println(eng.milesLeft())
-	if expectedMiles <= eng.milesLeft() {
-		fmt.Println("You can make it there")
-	} else {
-		fmt.Println("You can't make it there")
-	}
-}
 func main() {
 
-	var myGasEngine = gasEngine{25, 15, owner{"Karthik"}}
-	var myElectricEngine = electricEngine{15, 15, owner{"Karthik"}}
-	fmt.Println(myGasEngine.mpg, myGasEngine.gallons, myGasEngine.name)
-	fmt.Println(myElectricEngine.mpkwh, myElectricEngine.kwh, myElectricEngine.name)
+	var myString string = "résumé"
 
-	canMakeIt(myElectricEngine, 250)
-	canMakeIt(myGasEngine, 250)
+	for index, char := range myString {
+		fmt.Println(index, char)
+	}
+	/*
+
+		0 114	0 - r
+		1 233	1,2 - `e
+		3 115	3 - s
+		4 117	4 - u
+		5 109	5 - m
+		6 233	6,7 - `e
+
+	*/
+	var myString2 = []rune("résumé")
+
+	for index, char := range myString2 {
+		fmt.Println(index, char)
+	}
+
+	/* Proper index matching
+	0 114
+	1 233
+	2 115
+	3 117
+	4 109
+	5 233
+	*/
+
+	// String building
+
+	var strSlice = []string{"K", "a", "r", "t", "h", "i", "k"}
+	var strBuilder strings.Builder
+
+	for i := range strSlice {
+		strBuilder.WriteString(strSlice[i])
+	}
+
+	var catStr = strBuilder.String()
+	fmt.Println(catStr)
 
 }
